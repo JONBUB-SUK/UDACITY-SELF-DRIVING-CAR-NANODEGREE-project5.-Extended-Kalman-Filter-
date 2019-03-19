@@ -23,10 +23,10 @@ For this project, I had to learn principle of Kalman-Filter
 
 # Content Of This Repo
 - ```src``` a directory with the project code
-	- main.cpp : reads in data, calls a function to run the Kalman filter, calls a function to calculate RMSE
-    - FusionEKF.cpp : initializes the filter, calls the predict function, calls the update function
-    - kalman_filter.cpp : defines the predict function, the update function for lidar, and the update function for radar
-    - tools.cpp : a function to calculate RMSE and the Jacobian matrix
+	- ```main.cpp``` : reads in data, calls a function to run the Kalman filter, calls a function to calculate RMSE
+    - ```FusionEKF.cpp``` : initializes the filter, calls the predict function, calls the update function
+    - ```kalman_filter.cpp``` : defines the predict function, the update function for lidar, and the update function for radar
+    - ```tools.cpp``` : a function to calculate RMSE and the Jacobian matrix
 - ```data``` a directory with two input files, provided by Udacity
 
 # Approach
