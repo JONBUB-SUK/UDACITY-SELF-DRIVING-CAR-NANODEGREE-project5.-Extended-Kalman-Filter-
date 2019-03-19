@@ -1,12 +1,20 @@
 # Introduction
 This is sixth project of Udacity Self-Driving Car Nanodegree program (Extended Kalman Filter)
+
 Object is to detect bicycle around me (supposing I am driving)
+
 Red circle is sensor data from Lidar,
+
 Blue circle is sensor data from Radar,
+
 Green triangle is result of calculation that predict its position & direction
+
 Object of this project is predict bicycle's position by using Extended Kalman Filter
+
 and its RMSE should be under ()
+
 Udacity provided starter code and sensor measurement data
+
 ....
 
 # Background Learning
