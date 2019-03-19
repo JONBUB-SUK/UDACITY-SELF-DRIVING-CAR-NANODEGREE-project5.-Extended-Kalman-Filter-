@@ -28,11 +28,54 @@ For this project, I had to learn principle of Kalman-Filter
 ...
 
 # Summary Of Each File
-main.cpp
-fusionEKF.h
-kalman-filter.h
-measurement_package.h
-tools.h
+1. FusionEKF.h
+class FusionEKF {
+ public:
+  /**
+   * Constructor.
+   */
+  FusionEKF();
+
+  /**
+   * Destructor.
+   */
+  virtual ~FusionEKF();
+
+  /**
+   * Run the whole flow of the Kalman Filter from here.
+   */
+  void ProcessMeasurement(const MeasurementPackage &measurement_pack);
+
+  /**
+   * Kalman Filter update and prediction math lives in here.
+   */
+  KalmanFilter ekf_;
+
+ private:
+  // check whether the tracking toolbox was initialized or not (first measurement)
+  bool is_initialized_;
+
+  // previous timestamp
+  long long previous_timestamp_;
+
+  // tool object used to compute Jacobian and RMSE
+  Tools tools;
+  Eigen::MatrixXd R_laser_;
+  Eigen::MatrixXd R_radar_;
+  Eigen::MatrixXd H_laser_;
+  Eigen::MatrixXd Hj_;
+  
+  double noise_ax;
+  double noise_ay;
+  
+};
+
+
+
+
+2. kalman-filter.h
+3. measurement_package.h
+4. tools.h
 
 # Results
 ...
