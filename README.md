@@ -1,7 +1,7 @@
 # Introduction
 This is sixth project of Udacity Self-Driving Car Nanodegree program (Extended Kalman Filter)
 
-Object is to detect bicycle around me (supposing I am driving)
+Object is to detect bicycle around me (supposing I am driving) by implementing Extended Kalman Filter with C++ 
 
 Red circle is sensor data from Lidar,
 
@@ -13,8 +13,11 @@ Object of this project is predict bicycle's position by using Extended Kalman Fi
 
 and its RMSE should be under ()
 
-Udacity provided starter code and sensor measurement data
+- Udacity provided simulator and sensor measurement data
 
+- It generated noise Lidar, Radar sersor measurements of the position and velocity of object
+
+- For predict its position I had to fusion two sensors
 
 # Background Learning
 For this project, I had to learn principle of Kalman-Filter
@@ -186,7 +189,23 @@ class Tools {
 
 # Results
 
+I have done one simulation and got this result
+
+px,py means position of x,y
+
+vx, vy means calculated velocity of x,y
+
 (NEED PICTURE)
+
+*Test One*
+
+| Input |   MSE   |
+| ----- | ------- |
+|  px   | 0.0953 |
+|  py   | 0.0855 |
+|  vx   | 0.4517 |
+|  vy   | 0.4404 |
+
 
 # Conclusion & Discussion
 
