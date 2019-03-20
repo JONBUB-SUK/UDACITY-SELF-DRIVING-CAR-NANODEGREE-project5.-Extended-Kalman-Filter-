@@ -15,11 +15,11 @@ and its RMSE should be under ()
 
 Udacity provided starter code and sensor measurement data
 
-....
 
 # Background Learning
 For this project, I had to learn principle of Kalman-Filter
-.....
+
+(NEED PICTURE)
 
 # Content Of This Repo
 - ```src``` a directory with the project code
@@ -30,10 +30,13 @@ For this project, I had to learn principle of Kalman-Filter
 - ```data``` a directory with two input files, provided by Udacity
 
 # Approach
-...
+This project don't have to think about approach
+
+Just by writing code according to Entended Kalman Filter 
 
 # Code Flow
-...
+
+(NEED PICTURE)
 
 # Summary Of Each File
 1. FusionEKF.h
@@ -182,7 +185,9 @@ class Tools {
 ```
 
 # Results
-...
+
+(NEED PICTURE)
 
 # Conclusion & Discussion
-...
+
+
