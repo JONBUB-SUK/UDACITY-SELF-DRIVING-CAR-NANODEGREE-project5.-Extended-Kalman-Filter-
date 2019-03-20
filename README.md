@@ -45,14 +45,16 @@ class FusionEKF {
   // Constructor
   FusionEKF();
 
-  
   // Destructor. 
   virtual ~FusionEKF();
   
-  // 설명
+  // It is main function that perform predict next position and calculate position by inputing sensor data
+  // Firstly, if it has first data input, we have to initialize data by using ekf_.init() function
+  // Secondly, predict next x,P by using only dt, Q noise
+  // Finally, calculate current position by using sensor data
   void ProcessMeasurement(const MeasurementPackage &measurement_pack);
 
-  // 설명
+  // We need KalmanFilter object for ProcessMeasurement
   KalmanFilter ekf_;
 
  private:
@@ -82,7 +84,7 @@ class FusionEKF {
 ```c++
 class KalmanFilter {
  
- // 설명
+ // Need Tools object to calculate RMSE
  Tools tools;
   
  public:
@@ -97,26 +99,13 @@ class KalmanFilter {
   void Init(Eigen::VectorXd &x_in, Eigen::MatrixXd &P_in, Eigen::MatrixXd &F_in,
             Eigen::MatrixXd &H_in, Eigen::MatrixXd &Hj_in, Eigen::MatrixXd &R_in, Eigen::MatrixXd &R_ekf_in, Eigen::MatrixXd &Q_in);
 
-  /**
-   * Prediction Predicts the state and the state covariance
-   * using the process model
-   * @param delta_T Time between k and k+1 in s
-   */
-  // 설명
+  // Predict position,velocity by using only F matrix (dt)
   void Predict();
 
-  /**
-   * Updates the state by using standard Kalman Filter equations
-   * @param z The measurement at k+1
-   */
-  // 설명
+  // Calculate position, velocity by using Laser measurement data
   void Update(const Eigen::VectorXd &z);
 
-  /**
-   * Updates the state by using Extended Kalman Filter equations
-   * @param z The measurement at k+1
-   */
-  // 설명
+  // Calculate position, velocity by using Radar measurement data
   void UpdateEKF(const Eigen::VectorXd &z);
 
   // state vector
@@ -155,16 +144,16 @@ class KalmanFilter {
 class MeasurementPackage {
  public:
  
-  // 설명
+  // Select sensor type LASER/RADAR
   enum SensorType{
     LASER,
     RADAR
   } sensor_type_;
 
-  // 설명
+  // For calculating dt
   long long timestamp_;
 
-  // 설명
+  // It include px,py for LASER, rho, theta, rho_dot for RADAR
   Eigen::VectorXd raw_measurements_;
   
 };
