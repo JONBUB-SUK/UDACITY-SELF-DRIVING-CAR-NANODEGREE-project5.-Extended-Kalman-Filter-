@@ -1,7 +1,6 @@
 # Introduction
-This is sixth project of Udacity Self-Driving Car Nanodegree program (Extended Kalman Filter)
 
-Object is to detect bicycle around me (supposing I am driving) by implementing Extended Kalman Filter with C++ 
+The object of this project is to detect bicycle around me (supposing I am driving) by implementing Extended Kalman Filter with C++ 
 
 Red circle is sensor data from Lidar,
 
@@ -11,7 +10,9 @@ Green triangle is result of calculation that predict its position & direction
 
 Object of this project is predict bicycle's position by using Extended Kalman Filter
 
-and its RMSE should be under ()
+and its RMSE should be under [.11, .11, 0.52, 0.52]
+
+* RMSE : Root Mean Squared Error *
 
 - Udacity provided simulator and sensor measurement data
 
@@ -21,6 +22,18 @@ and its RMSE should be under ()
 
 # Background Learning
 For this project, I had to learn principle of Kalman-Filter
+
+### 1. Sensors
+
+- Radar, Lidar strengths and weaknesses
+
+### 2. Kalman Filter
+
+- Iteration of predict and measurement update
+
+### 3. Extended Kalman Filter
+
+- Sensor Fusion (predict and update using both radar and raser sensors)
 
 (NEED PICTURE)
 
@@ -32,10 +45,6 @@ For this project, I had to learn principle of Kalman-Filter
     - ```tools.cpp``` : a function to calculate RMSE and the Jacobian matrix
 - ```data``` a directory with two input files, provided by Udacity
 
-# Approach
-This project don't have to think about approach
-
-Just by writing code according to Entended Kalman Filter 
 
 # Code Flow
 
@@ -201,10 +210,10 @@ vx, vy means calculated velocity of x,y
 
 | Input |   MSE   |
 | ----- | ------- |
-|  px   | 0.0953 |
-|  py   | 0.0855 |
-|  vx   | 0.4517 |
-|  vy   | 0.4404 |
+|  px   | 0.1164 |
+|  py   | 0.2811 |
+|  vx   | 0.4542 |
+|  vy   | 0.7827 |
 
 
 # Conclusion & Discussion
@@ -212,3 +221,5 @@ vx, vy means calculated velocity of x,y
 I will test using only one sensor (Lidar or Radar)
 
 Wonder how that result is diffrent from using both sensors
+
+2. y 값 차이가 커서 손좀 봐야할듯
