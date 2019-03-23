@@ -23,7 +23,7 @@
 
 [image4-1]: ./images/code_flow.png "Code Flow"
 
-[image5-1]: ./images/Result.png "Result"
+[image5-1]: ./images/result.png "Result"
 
 
 
