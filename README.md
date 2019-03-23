@@ -64,7 +64,7 @@ For this project, I had to learn principle of Kalman-Filter
 
 - Iteration of predict and measurement update
 
-![alt text](image2-1){: width="50%" height="50%"}
+![alt text][image2-1][: width="50%" height="50%"]
 ![alt text][image2-2]
 ![alt text][image2-3]
 ![alt text][image2-4]
