@@ -5,7 +5,7 @@
 
 [image1-1]: ./images/laser_radar.png "raser and radar characterastics"
 
-[image2-1]: ./images/kalman_filter_1.jpg {: width="50%" height="50%"} "About Kalman Filter"
+[image2-1]: ./images/kalman_filter_1.jpg "About Kalman Filter"
 [image2-2]: ./images/kalman_filter_2.jpg "About Kalman Filter"
 [image2-3]: ./images/kalman_filter_3.jpg "About Kalman Filter"
 [image2-4]: ./images/kalman_filter_4.jpg "About Kalman Filter"
@@ -64,7 +64,7 @@ For this project, I had to learn principle of Kalman-Filter
 
 - Iteration of predict and measurement update
 
-![alt text][image2-1]
+![alt text][image2-1]{: width="50%" height="50%"}
 ![alt text][image2-2]
 ![alt text][image2-3]
 ![alt text][image2-4]
