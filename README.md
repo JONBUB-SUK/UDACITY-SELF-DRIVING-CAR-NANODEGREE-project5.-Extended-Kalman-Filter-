@@ -1,3 +1,32 @@
+# UDACITY-SELF-DRIVING-CAR-NANODEGREE-project5.Extended Kalman Filter
+
+
+[//]: # (Image References)
+
+[image1-1]: ./images/laser_radar.png "raser and radar characterastics"
+
+[image2-1]: ./images/kalman_filter_1.jpg "About Kalman Filter"
+[image2-2]: ./images/kalman_filter_2.jpg "About Kalman Filter"
+[image2-3]: ./images/kalman_filter_3.jpg "About Kalman Filter"
+[image2-4]: ./images/kalman_filter_4.jpg "About Kalman Filter"
+[image2-5]: ./images/kalman_filter_5.jpg "About Kalman Filter"
+
+[image3-1]: ./images/extended_kalman_filter_1.jpg "About Extended Kalman Filter"
+[image3-2]: ./images/extended_kalman_filter_2.jpg "About Extended Kalman Filter"
+[image3-3]: ./images/extended_kalman_filter_3.jpg "About Extended Kalman Filter"
+[image3-4]: ./images/extended_kalman_filter_4.jpg "About Extended Kalman Filter"
+[image3-5]: ./images/extended_kalman_filter_5.jpg "About Extended Kalman Filter"
+[image3-6]: ./images/extended_kalman_filter_6.jpg "About Extended Kalman Filter"
+[image3-7]: ./images/extended_kalman_filter_7.jpg "About Extended Kalman Filter"
+[image3-8]: ./images/extended_kalman_filter_8.jpg "About Extended Kalman Filter"
+[image3-9]: ./images/extended_kalman_filter_9.jpg "About Extended Kalman Filter"
+
+[image4-1]: ./images/code_flow.png "Code Flow"
+
+[image5-1]: ./images/Result.png "Result"
+
+
+
 # Introduction
 
 The object of this project is to detect bicycle around me (supposing I am driving) by implementing Extended Kalman Filter with C++ 
@@ -27,15 +56,38 @@ For this project, I had to learn principle of Kalman-Filter
 
 - Radar, Lidar strengths and weaknesses
 
+![alt text][image1-1]
+
+
+
 ### 2. Kalman Filter
 
 - Iteration of predict and measurement update
+
+![alt text][image2-1]
+![alt text][image2-2]
+![alt text][image2-3]
+![alt text][image2-4]
+![alt text][image2-5]
+
 
 ### 3. Extended Kalman Filter
 
 - Sensor Fusion (predict and update using both radar and raser sensors)
 
-(NEED PICTURE)
+
+![alt text][image3-1]
+![alt text][image3-2]
+![alt text][image3-3]
+![alt text][image3-4]
+![alt text][image3-5]
+![alt text][image3-6]
+![alt text][image3-7]
+![alt text][image3-8]
+![alt text][image3-9]
+
+
+
 
 # Content Of This Repo
 - ```src``` a directory with the project code
@@ -48,7 +100,8 @@ For this project, I had to learn principle of Kalman-Filter
 
 # Code Flow
 
-(NEED PICTURE)
+![alt text][image4-1]
+
 
 # Summary Of Each File
 1. FusionEKF.h
@@ -204,7 +257,8 @@ px,py means position of x,y
 
 vx, vy means calculated velocity of x,y
 
-(NEED PICTURE)
+![alt text][image5-1]
+
 
 *Test One*
 
