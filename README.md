@@ -270,8 +270,12 @@ vx, vy means calculated velocity of x,y
 
 # Conclusion & Discussion
 
+### 1. Test only using one sensor
+
 I will test using only one sensor (Lidar or Radar)
 
 Wonder how that result is diffrent from using both sensors
 
-2. y 값 차이가 커서 손좀 봐야할듯
+### 2. y value has large differences
+
+
