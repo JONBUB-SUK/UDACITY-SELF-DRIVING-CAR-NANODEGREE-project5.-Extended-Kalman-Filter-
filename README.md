@@ -12,7 +12,7 @@ Object of this project is predict bicycle's position by using Extended Kalman Fi
 
 and its RMSE should be under [.11, .11, 0.52, 0.52]
 
-* RMSE : Root Mean Squared Error *
+*RMSE : Root Mean Squared Error*
 
 - Udacity provided simulator and sensor measurement data
 
