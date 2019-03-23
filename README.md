@@ -64,7 +64,7 @@ For this project, I had to learn principle of Kalman-Filter
 
 - Iteration of predict and measurement update
 
-<img src="./images/kalman_filter_1.jpg" width="200">
+<img src=[image2-1] width="200">
 ![alt text][image2-1]
 ![alt text][image2-2]
 ![alt text][image2-3]
