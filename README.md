@@ -64,30 +64,26 @@ For this project, I had to learn principle of Kalman-Filter
 
 - Iteration of predict and measurement update
 
-<img src="./images/kalman_filter_1.jpg" width="600">
-
-![alt text][image2-1]
-![alt text][image2-2]
-![alt text][image2-3]
-![alt text][image2-4]
-![alt text][image2-5]
+<img src="./images/kalman_filter_1.jpg" width="500">
+<img src="./images/kalman_filter_2.jpg" width="500">
+<img src="./images/kalman_filter_3.jpg" width="500">
+<img src="./images/kalman_filter_4.jpg" width="500">
+<img src="./images/kalman_filter_5.jpg" width="500">
 
 
 ### 3. Extended Kalman Filter
 
 - Sensor Fusion (predict and update using both radar and raser sensors)
 
-
-![alt text][image3-1]
-![alt text][image3-2]
-![alt text][image3-3]
-![alt text][image3-4]
-![alt text][image3-5]
-![alt text][image3-6]
-![alt text][image3-7]
-![alt text][image3-8]
-![alt text][image3-9]
-
+<img src="./images/extended_kalman_filter_1.jpg" width="500">
+<img src="./images/extended_kalman_filter_2.jpg" width="500">
+<img src="./images/extended_kalman_filter_3.jpg" width="500">
+<img src="./images/extended_kalman_filter_4.jpg" width="500">
+<img src="./images/extended_kalman_filter_5.jpg" width="500">
+<img src="./images/extended_kalman_filter_6.jpg" width="500">
+<img src="./images/extended_kalman_filter_7.jpg" width="500">
+<img src="./images/extended_kalman_filter_8.jpg" width="500">
+<img src="./images/extended_kalman_filter_9.jpg" width="500">
 
 
 
