@@ -5,7 +5,7 @@
 
 [image1-1]: ./images/laser_radar.png "raser and radar characterastics"
 
-[image2-1]: ./images/kalman_filter_1.jpg "About Kalman Filter"
+[image2-1]: ./images/kalman_filter_1.jpg = 500x "About Kalman Filter"
 [image2-2]: ./images/kalman_filter_2.jpg "About Kalman Filter"
 [image2-3]: ./images/kalman_filter_3.jpg "About Kalman Filter"
 [image2-4]: ./images/kalman_filter_4.jpg "About Kalman Filter"
