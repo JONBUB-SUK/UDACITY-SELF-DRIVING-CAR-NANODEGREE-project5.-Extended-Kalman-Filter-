@@ -276,6 +276,5 @@ I will test using only one sensor (Lidar or Radar)
 
 Wonder how that result is diffrent from using both sensors
 
-### 2. y value has large differences
 
 
