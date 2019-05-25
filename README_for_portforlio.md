@@ -79,7 +79,7 @@ and its RMSE should be under [.11, .11, 0.52, 0.52]
 
 #### 2) Code Flow
 
-<img src="./images/code_flow.png" width="600">
+<img src="./images/code_flow.png" width="800">
 
 ① main.cpp
 
@@ -221,8 +221,7 @@ px,py means position of x,y
 
 vx, vy means calculated velocity of x,y
 
-![alt text][image5-1]
-<img src="./images/result.png" width="300">
+<img src="./images/result.png" width="600">
 
 | Input |   MSE   |
 | ----- | ------- |
