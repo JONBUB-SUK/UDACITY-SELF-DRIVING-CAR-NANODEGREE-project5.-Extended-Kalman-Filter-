@@ -1,5 +1,5 @@
 # SELF DRIVING CAR NANODEGREE
-# project5.Extended Kalman Filter
+# project5. Extended Kalman Filter
 
 
 [//]: # (Image References)
@@ -79,7 +79,7 @@ and its RMSE should be under [.11, .11, 0.52, 0.52]
 
 #### 2) Code Flow
 
-![alt text][image4-1]
+<img src="./images/code_flow.png" width="600">
 
 ① main.cpp
 
@@ -91,38 +91,28 @@ and its RMSE should be under [.11, .11, 0.52, 0.52]
 ```c++
 class FusionEKF {
  public:
-  
-  // Constructor
+
   FusionEKF();
 
-  // Destructor. 
   virtual ~FusionEKF();
   
-  // It is main function that perform predict next position and calculate position by inputing sensor data
-  // Firstly, if it has first data input, we have to initialize data by using ekf_.init() function
-  // Secondly, predict next x,P by using only dt, Q noise
-  // Finally, calculate current position by using sensor data
   void ProcessMeasurement(const MeasurementPackage &measurement_pack);
 
-  // We need KalmanFilter object for ProcessMeasurement
   KalmanFilter ekf_;
 
  private:
- 
-  // check whether the tracking toolbox was initialized or not (first measurement)
+
   bool is_initialized_;
 
-  // previous timestamp
   long long previous_timestamp_;
 
-  // tool object used to compute Jacobian and RMSE
   Tools tools;
+  
   Eigen::MatrixXd R_laser_;
   Eigen::MatrixXd R_radar_;
   Eigen::MatrixXd H_laser_;
   Eigen::MatrixXd Hj_;
 
-  // noise constant
   double noise_ax;
   double noise_ay;
 
@@ -133,21 +123,19 @@ class FusionEKF {
 
 ```c++
 class KalmanFilter {
- 
- // Need Tools object to calculate RMSE
+
  Tools tools;
   
  public:
 
-  // Constructor
   KalmanFilter();
 
-  // Destructor
   virtual ~KalmanFilter();
 
   // Initializes Kalman filter (x, P, F, H, Hj, R, R_ekf, Q, I)
   void Init(Eigen::VectorXd &x_in, Eigen::MatrixXd &P_in, Eigen::MatrixXd &F_in,
-            Eigen::MatrixXd &H_in, Eigen::MatrixXd &Hj_in, Eigen::MatrixXd &R_in, Eigen::MatrixXd &R_ekf_in, Eigen::MatrixXd &Q_in);
+            Eigen::MatrixXd &H_in, Eigen::MatrixXd &Hj_in, Eigen::MatrixXd &R_in, 
+            Eigen::MatrixXd &R_ekf_in, Eigen::MatrixXd &Q_in);
 
   // Predict position,velocity by using only F matrix (dt)
   void Predict();
@@ -193,14 +181,12 @@ class KalmanFilter {
 ```c++
 class MeasurementPackage {
  public:
- 
-  // Select sensor type LASER/RADAR
+
   enum SensorType{
     LASER,
     RADAR
   } sensor_type_;
 
-  // For calculating dt
   long long timestamp_;
 
   // It include px,py for LASER, rho, theta, rho_dot for RADAR
@@ -215,17 +201,13 @@ class MeasurementPackage {
 class Tools {
  public:
 
-  // Constructor
   Tools();
 
-  // Destructor
   virtual ~Tools();
 
-  // Calculating RMSE
   Eigen::VectorXd CalculateRMSE(const std::vector<Eigen::VectorXd> &estimations, 
                                 const std::vector<Eigen::VectorXd> &ground_truth);
 
-  // Calculating Jacobian
   Eigen::MatrixXd CalculateJacobian(const Eigen::VectorXd& x_state);
 
 };
@@ -240,9 +222,7 @@ px,py means position of x,y
 vx, vy means calculated velocity of x,y
 
 ![alt text][image5-1]
-
-
-*Test One*
+<img src="./images/result.png" width="300">
 
 | Input |   MSE   |
 | ----- | ------- |
