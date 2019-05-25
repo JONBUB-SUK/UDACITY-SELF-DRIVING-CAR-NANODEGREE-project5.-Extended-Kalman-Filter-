@@ -245,7 +245,9 @@ int main() {
 }
 ```
 
-② FusionEKF.h
+② FusionEKF
+
+###### FusionEKF.h
 
 ```c++
 class FusionEKF {
@@ -278,7 +280,149 @@ class FusionEKF {
 };
 ```
 
-③ kalman-filter.h
+###### FusionEKF.cpp
+
+```c++
+#include "FusionEKF.h"
+#include <iostream>
+#include "Eigen/Dense"
+#include "tools.h"
+
+using Eigen::MatrixXd;
+using Eigen::VectorXd;
+using std::cout;
+using std::endl;
+using std::vector;
+
+FusionEKF::FusionEKF() {
+  is_initialized_ = false;
+
+  previous_timestamp_ = 0;
+
+  R_laser_ = MatrixXd(2, 2);
+  R_radar_ = MatrixXd(3, 3);
+  H_laser_ = MatrixXd(2, 4);
+
+  Hj_ = MatrixXd(3, 4);
+
+  R_laser_ << 0.0225, 0,
+              0, 0.0225;
+
+  R_radar_ << 0.09, 0, 0,
+              0, 0.0009, 0,
+              0, 0, 0.09;
+  
+  noise_ax = 9.;
+  noise_ay = 9.;
+
+}
+
+FusionEKF::~FusionEKF() {}
+
+void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
+
+  if (!is_initialized_) {
+
+    cout << "Initializing EKF" << endl;
+    
+    VectorXd x(4);
+
+    if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
+
+	float px;
+    float py;
+
+    float rho;
+    float phi;
+      
+	rho = measurement_pack.raw_measurements_[0];
+	phi = measurement_pack.raw_measurements_[1];        
+      
+    px = rho * cos(phi);
+    py = rho * sin(phi);
+      
+    x << px, py, 0.f, 0.f;    
+    }
+    else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
+	
+	float px;
+    float py;
+      
+	px = measurement_pack.raw_measurements_[0];      
+	py = measurement_pack.raw_measurements_[1];
+
+    x << px, py, 0.f, 0.f;
+    }
+    
+    cout << "End of x information Initializing" << endl;
+    
+	previous_timestamp_ = measurement_pack.timestamp_;
+
+    MatrixXd P(4, 4);
+    P << 1, 0, 0, 0,
+         0, 1, 0, 0,
+         0, 0, 1000, 0,
+         0, 0, 0, 1000;
+    
+    MatrixXd F(4, 4);
+    F << 1, 0, 0, 0,
+         0, 1, 0, 0,
+         0, 0, 1, 0,
+         0, 0, 0, 1;
+ 
+    H_laser_ << 1, 0, 0, 0,
+               0, 1, 0, 0;
+    
+    MatrixXd Q(4,4);
+
+    ekf_.Init( x, /*x_in*/ 
+               P, /*P_in*/ 
+               F, /*F_in*/
+               H_laser_, /*H_in*/ 
+               Hj_, /*Hj_in*/ 
+               R_laser_, /*R_in*/ 
+               R_radar_, /*R_ekf_in*/ 
+               Q ); /*Q_in*/
+    
+    is_initialized_ = true;
+    cout << "End of Initializing EKF" << endl;
+    return;
+  }
+
+  float dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;
+  previous_timestamp_ = measurement_pack.timestamp_;
+
+  ekf_.F_(0,2) = dt;
+  ekf_.F_(1,3) = dt;
+  
+  float dt_2 = dt * dt;
+  float dt_3 = dt_2 * dt;
+  float dt_4 = dt_3 * dt;
+  
+  ekf_.Q_ << dt_4 / 4 * noise_ax, 0, dt_3 / 2 * noise_ax, 0,
+             0, dt_4 / 4 * noise_ay, 0, dt_3 /2 * noise_ay,
+             dt_3 / 2 * noise_ax, 0, dt_2 * noise_ax, 0,
+             0, dt_3 / 2 * noise_ay, 0, dt_2 * noise_ay;
+  
+  ekf_.Predict();
+
+  if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
+
+    ekf_.UpdateEKF(measurement_pack.raw_measurements_);
+       
+  } else {
+  
+    ekf_.Update(measurement_pack.raw_measurements_);       
+  }
+
+  cout << "x_ = " << ekf_.x_ << endl;
+  cout << "P_ = " << ekf_.P_ << endl;
+}
+```
+
+③ kalman-filter
+
+###### kalman-filter.h
 
 ```c++
 class KalmanFilter {
@@ -335,7 +479,96 @@ class KalmanFilter {
 };
 ```
 
-④ measurement_package.h
+###### kalman-filter.cpp
+
+```c++
+#include "kalman_filter.h"
+
+using Eigen::MatrixXd;
+using Eigen::VectorXd;
+
+KalmanFilter::KalmanFilter() {}
+
+KalmanFilter::~KalmanFilter() {}
+
+void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
+                        MatrixXd &H_in, MatrixXd &Hj_in, MatrixXd &R_in, 
+                        MatrixXd &R_ekf_in, MatrixXd &Q_in) {
+  x_ = x_in;
+  P_ = P_in;
+  F_ = F_in;
+  H_ = H_in;
+  Hj_ = Hj_in;
+  R_ = R_in;
+  R_ekf_ = R_ekf_in;
+  Q_ = Q_in;
+  I_ = Eigen::MatrixXd::Identity(4,4);
+}
+
+void KalmanFilter::Predict() {
+
+  MatrixXd Ft = F_.transpose();  
+  
+  x_ = F_ * x_;
+  P_ = F_ * P_ * Ft + Q_;
+  
+}
+
+void KalmanFilter::Update(const VectorXd &z) {
+
+  VectorXd y = z - H_ * x_;
+  MatrixXd Ht = H_.transpose();
+  MatrixXd S = H_ * P_ * Ht + R_;
+  MatrixXd Si = S.inverse();
+  MatrixXd K =  P_ * Ht * Si;
+  
+  x_ = x_ + (K * y);
+  P_ = (I_ - K * H_) * P_;
+  
+}
+
+void KalmanFilter::UpdateEKF(const VectorXd &z) {
+
+  float px = x_[0];
+  float py = x_[1];
+  float vx = x_[2];
+  float vy = x_[3];
+  
+  if( px == 0. && py == 0. )
+    return;
+  
+  float rho = sqrt(px*px + py*py);
+  float theta = atan2(py, px);
+  float rho_dot = (px*vx + py*vy) / rho;
+
+  Hj_ = tools.CalculateJacobian(x_);
+  
+  VectorXd h_x_prime = VectorXd(3);
+  h_x_prime << rho, theta, rho_dot;
+  
+  VectorXd y = z - h_x_prime;
+  
+  if (y[1] > M_PI){
+    y[1] -= 2.f*M_PI;
+  }
+  else if (y[1] < -M_PI){
+    y[1] += 2.f*M_PI;
+  }
+  
+  MatrixXd Hjt = Hj_.transpose();
+  MatrixXd S = Hj_ * P_ * Hjt + R_ekf_;
+  MatrixXd Si = S.inverse();
+  MatrixXd K =  P_ * Hjt * Si;
+  
+  x_ = x_ + (K * y);
+  P_ = (I_ - K * Hj_) * P_;  
+   
+}
+```
+
+④ measurement_package
+
+###### measurement_package.h
 
 ```c++
 class MeasurementPackage {
@@ -348,13 +581,14 @@ class MeasurementPackage {
 
   long long timestamp_;
 
-  // It include px,py for LASER, rho, theta, rho_dot for RADAR
   Eigen::VectorXd raw_measurements_;
   
 };
 ```
 
-⑤ tools.h
+⑤ tools
+
+###### tools.h
 
 ```c++
 class Tools {
@@ -371,6 +605,87 @@ class Tools {
 
 };
 ```
+
+###### tools.cpp
+
+```c++
+#include "tools.h"
+#include <iostream>
+
+using Eigen::VectorXd;
+using Eigen::MatrixXd;
+using std::vector;
+using namespace std;
+
+Tools::Tools() {}
+
+Tools::~Tools() {}
+
+VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
+                              const vector<VectorXd> &ground_truth) {
+
+    VectorXd rmse(4);
+    rmse << 0,0,0,0;
+
+    if(estimations.size() == 0){
+      cout << "ERROR - CalculateRMSE () - The estimations vector is empty" << endl;
+      return rmse;
+    }
+
+    if(ground_truth.size() == 0){
+      cout << "ERROR - CalculateRMSE () - The ground-truth vector is empty" << endl;
+      return rmse;
+    }
+
+    unsigned int n = estimations.size();
+    if(n != ground_truth.size()){
+      cout << "ERROR - CalculateRMSE () - The ground-truth and estimations vectors must have the same size." << endl;
+      return rmse;
+    }
+
+    for(unsigned int i=0; i < estimations.size(); ++i){
+      VectorXd diff = estimations[i] - ground_truth[i];
+      diff = diff.array()*diff.array();
+      rmse += diff;
+    }
+
+    rmse = rmse / n;
+    rmse = rmse.array().sqrt();
+    return rmse;
+  
+}
+
+MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
+
+  MatrixXd Hj(3,4);
+  
+  if ( x_state.size() != 4 ) {
+    cout << "ERROR - CalculateJacobian () - The state vector must have size 4." << endl;
+    return Hj;
+  }
+  
+  double px = x_state(0);
+  double py = x_state(1);
+  double vx = x_state(2);
+  double vy = x_state(3);
+  
+  double c1 = sqrt(px*px + py*py);
+  double c2 = c1*c1;
+  double c3 = c2*c1;
+  
+  if(fabs(c1) < 0.0001){
+  cout << "ERROR - CalculateJacobian () - Division by Zero" << endl;
+  return Hj;
+  }
+  
+  Hj << px/c1, py/c1, 0 ,0,
+        -py/c2, -px/c2, 0, 0,
+        py*(vx*py-vy*px)/c3, px*(vy*px-vx*py)/c3, px/c1, py/c1;
+  
+  return Hj;
+}
+```
+
 
 ## 4. Results
 
