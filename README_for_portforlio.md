@@ -30,25 +30,25 @@
 
 ## 1. Abstraction
 
-The object of this project is to detect bicycle around me (supposing I am driving) by implementing Extended Kalman Filter with C++ 
+The purpose of this project is to detect bicycle around me (supposing I am driving) by implementing Extended Kalman Filter with C++ 
 
-Red circle is sensor data from Lidar,
+Red circle is sensor data from Lidar, 
 
 Blue circle is sensor data from Radar,
 
 Green triangle is result of calculation that predict its position & direction
 
-Object of this project is predict bicycle's position by using Extended Kalman Filter
+Rubric point of this project is predict bicycle's position by using Extended Kalman Filter
 
 and its RMSE should be under [.11, .11, 0.52, 0.52]
 
 *RMSE : Root Mean Squared Error*
 
-- Udacity provided simulator and sensor measurement data
+Udacity provided simulator and sensor measurement data
 
-- It generated noise Lidar, Radar sersor measurements of the position and velocity of object
+It generated noise Lidar, Radar sersor measurements of the position and velocity of object
 
-- For predict its position I had to fusion two sensors
+For predict its position I had to fusion two sensors
 
 ## 2. Related Study
 
