@@ -1,4 +1,5 @@
-# UDACITY-SELF-DRIVING-CAR-NANODEGREE-project5.Extended Kalman Filter
+# SELF DRIVING CAR NANODEGREE
+# project5.Extended Kalman Filter
 
 
 [//]: # (Image References)
@@ -27,7 +28,7 @@
 
 
 
-# Introduction
+## 1. Abstraction
 
 The object of this project is to detect bicycle around me (supposing I am driving) by implementing Extended Kalman Filter with C++ 
 
@@ -49,60 +50,43 @@ and its RMSE should be under [.11, .11, 0.52, 0.52]
 
 - For predict its position I had to fusion two sensors
 
-# Background Learning
-For this project, I had to learn principle of Kalman-Filter
+## 2. Related Study
 
-### 1. Sensors
+#### 1) Sensors
 
-- Radar, Lidar strengths and weaknesses
+① Radar, Lidar strengths and weaknesses
 
-![alt text][image1-1]
+#### 2) Kalman Filter
 
+② Iteration of predict and measurement update
 
+#### 3) Extended Kalman Filter
 
-### 2. Kalman Filter
-
-- Iteration of predict and measurement update
-
-<img src="./images/kalman_filter_1.jpg" width="500">
-<img src="./images/kalman_filter_2.jpg" width="500">
-<img src="./images/kalman_filter_3.jpg" width="500">
-<img src="./images/kalman_filter_4.jpg" width="500">
-<img src="./images/kalman_filter_5.jpg" width="500">
+① Sensor Fusion (predict and update using both radar and raser sensors)
 
 
-### 3. Extended Kalman Filter
+## 3. Details
 
-- Sensor Fusion (predict and update using both radar and raser sensors)
+#### 1) Content Of This Repo
 
-<img src="./images/extended_kalman_filter_1.jpg" width="500">
-<img src="./images/extended_kalman_filter_2.jpg" width="500">
-<img src="./images/extended_kalman_filter_3.jpg" width="500">
-<img src="./images/extended_kalman_filter_4.jpg" width="500">
-<img src="./images/extended_kalman_filter_5.jpg" width="500">
-<img src="./images/extended_kalman_filter_6.jpg" width="500">
-<img src="./images/extended_kalman_filter_7.jpg" width="500">
-<img src="./images/extended_kalman_filter_8.jpg" width="500">
-<img src="./images/extended_kalman_filter_9.jpg" width="500">
-
-
-
-# Content Of This Repo
 - ```src``` a directory with the project code
-	- ```main.cpp``` : reads in data, calls a function to run the Kalman filter, calls a function to calculate RMSE
+    - ```main.cpp``` : reads in data, calls a function to run the Kalman filter, calls a function to calculate RMSE
     - ```FusionEKF.cpp``` : initializes the filter, calls the predict function, calls the update function
     - ```kalman_filter.cpp``` : defines the predict function, the update function for lidar, and the update function for radar
     - ```tools.cpp``` : a function to calculate RMSE and the Jacobian matrix
 - ```data``` a directory with two input files, provided by Udacity
 
 
-# Code Flow
+#### 2) Code Flow
 
 ![alt text][image4-1]
 
+① main.cpp
 
-# Summary Of Each File
-1. FusionEKF.h
+
+
+
+② FusionEKF.h
 
 ```c++
 class FusionEKF {
@@ -145,7 +129,7 @@ class FusionEKF {
 };
 ```
 
-2. kalman-filter.h
+③ kalman-filter.h
 
 ```c++
 class KalmanFilter {
@@ -204,7 +188,7 @@ class KalmanFilter {
 };
 ```
 
-3. measurement_package.h
+④ measurement_package.h
 
 ```c++
 class MeasurementPackage {
@@ -225,7 +209,7 @@ class MeasurementPackage {
 };
 ```
 
-4. tools.h
+⑤ tools.h
 
 ```c++
 class Tools {
@@ -247,7 +231,7 @@ class Tools {
 };
 ```
 
-# Results
+## 4. Results
 
 I have done one simulation and got this result
 
@@ -268,9 +252,9 @@ vx, vy means calculated velocity of x,y
 |  vy   | 0.7827 |
 
 
-# Conclusion & Discussion
+## 5. Discussion
 
-### 1. Test only using one sensor
+#### 1) Test only using one sensor
 
 I will test using only one sensor (Lidar or Radar)
 
